@@ -4,7 +4,6 @@
 
 
 #include <iostream>
-#include <chrono>
 #include <thread>
 #include <tins/tins.h>
 #include "generator.h"
@@ -12,10 +11,10 @@
 using namespace std;
 using namespace Tins;
 
-    IPv6 icmpv6(std::string src, std::string dest, int size) {
+    IPv6 icmpv6(std::string src_ipv6, std::string dest_ipv6, int size) {
         // define SRC and DEST
-        std::string source = src;
-        std::string destination = dest;
+        std::string source = src_ipv6;
+        std::string destination = dest_ipv6;
 
         std::string data = generate(size);
 

@@ -5,5 +5,5 @@
 #define ICMPV6_H
 #include <tins/ipv6.h>
 
-Tins::IPv6 icmpv6(std::string src, std::string dest, int size);
+Tins::IPv6 icmpv6(std::string src_ipv6, std::string dest_ipv6, int size);
 #endif //ICMPV6_H
