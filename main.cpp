@@ -46,6 +46,7 @@ int main(int argc, char* argv[]) {
     int count = 0;
     bool fry = false;
     bool debug = false;
+    bool syn = false;
 
 
     for (int i = 1; i < argc; ++i) {
@@ -84,6 +85,8 @@ int main(int argc, char* argv[]) {
             fry = true;
         } else if (strcmp(argv[i], "-v") == 0) {
             debug = true;
+        } else if (strcmp(argv[i], "--syn") == 0) {
+            syn = true;
         }
     }
 
@@ -105,6 +108,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Timeout: " << timeout << std::endl;
         std::cout << "Count: " << count << std::endl;
         std::cout << "Fry: " << (fry ? "true" : "false") << std::endl;
+        std::cout << "TCP Syn: " << (syn ? "true" : "false") << std::endl;
     }
 
 
@@ -117,7 +121,7 @@ int main(int argc, char* argv[]) {
         if (is_udp) {
             packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size);
         } else if (is_tcp) {
-            packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size);
+            packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,syn);
         } else {
             // nothing selected fallback to ICMP
             packet6 = icmpv6(src_ip,dst_ip,size);
@@ -129,7 +133,7 @@ int main(int argc, char* argv[]) {
         if (is_udp) {
             packet = udp(src_ip,dst_ip,src_port,dst_port,size);
         } else if (is_tcp) {
-            packet = tcp(src_ip,dst_ip,src_port,dst_port,size);
+            packet = tcp(src_ip,dst_ip,src_port,dst_port,size,syn);
         } else {
             // nothing selected fallback to ICMP
             packet = icmp(src_ip,dst_ip,size);
