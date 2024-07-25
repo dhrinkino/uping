@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
     // argument processing
     bool fast = false;
     bool faster = false;
-    int interval = 10000000;
+    int interval = 1000000;
     bool is_tcp = false;
     bool is_ipv6 = false;
     bool is_udp = false;
