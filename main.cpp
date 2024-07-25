@@ -6,7 +6,7 @@
 #include <limits>
 
 
-// includes of internal files
+
 #include "icmpv6.h"
 #include "tcp6.h"
 #include "udp6.h"
