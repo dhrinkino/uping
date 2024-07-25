@@ -1,5 +1,5 @@
 # UPing
-## Universal Packet generator
+## Universal IPv4 and IPv6 Packet generator
 
 UPing originated as a product of academic research projects in which I participated. Academics and security researchers have long struggled with the lack of a unified testing tool for IPv4 and IPv6 communication. The most commonly used tool by the community, hping3, does not allow for the generation of IPv6 packets, often necessitating custom solutions for packet generation. UPing enables the generation of ICMP, UDP, and TCP packets for both IPv4 and IPv6 networks.
 
