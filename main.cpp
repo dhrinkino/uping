@@ -31,7 +31,7 @@ int main(int argc, char* argv[]) {
     // argument processing
     bool fast = false;
     bool faster = false;
-    int interval = 5000;
+    int interval = 10000000;
     bool is_tcp = false;
     bool is_ipv6 = false;
     bool is_udp = false;
@@ -53,9 +53,9 @@ int main(int argc, char* argv[]) {
             fast = true;
         } else if (strcmp(argv[i], "--faster") == 0) {
             faster = true;
-        } else if (strcmp(argv[i], "--interval") == 0 && i + 1 < argc) {
-            interval = (int)(atof(argv[++i])*1000); // convert to microseconds and then to int
-            std::cout <<
+        } else if (strncmp(argv[i], "--interval=", 11) == 0) {
+            interval = (int)(atof(argv[i] + 11)*1000); // convert to microseconds and then to int
+
         } else if (strcmp(argv[i], "--tcp") == 0) {
             is_tcp = true;
         } else if (strcmp(argv[i], "--ipv6") == 0) {
@@ -151,12 +151,18 @@ int main(int argc, char* argv[]) {
                 if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count() > end_time) {
                     exit(0);
                 }
-                if (!fast) {
-                    if (!faster) {
-                        std::this_thread::sleep_for(std::chrono::microseconds(interval));
-                        printf(".");
-                        fflush(stdout);
-                    }
+                if (counter > count && count != 0) {
+                    exit(0);
+                }
+                if (fast) {
+                    printf(".");
+                    fflush(stdout);
+                }else if (faster) {
+                    //
+                } else {
+                    std::this_thread::sleep_for(std::chrono::microseconds(interval));
+                    printf(".");
+                    fflush(stdout);
                 }
                 sender.send(packet6);
             }
@@ -169,22 +175,22 @@ int main(int argc, char* argv[]) {
                 if (counter > count && count != 0) {
                     exit(0);
                 }
-                if (!fast) {
-                    if (!faster) {
-                        std::this_thread::sleep_for(std::chrono::microseconds(interval));
-                        printf(".");
-                        fflush(stdout);
-                    }
+                if (fast) {
+                    printf(".");
+                    fflush(stdout);
+                }else if (faster) {
+                    //
+                } else {
+                    std::this_thread::sleep_for(std::chrono::microseconds(interval));
+                    printf(".");
+                    fflush(stdout);
                 }
                 sender.send(packet);
                 counter++;
             }
         }
 
-
-
     }
-
 
     return 0;
 }
