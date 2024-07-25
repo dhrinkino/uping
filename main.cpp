@@ -3,6 +3,7 @@
 #include <thread>
 #include <cstring>
 #include <cstdlib>
+#include <limits>
 
 
 // includes of internal files
@@ -23,12 +24,14 @@ int main(int argc, char* argv[]) {
     IP packet;
     IPv6 packet6;
     PacketSender sender;
-    double end_time = 999999999999999;
+    int counter = 0;
+
+    long long end_time = std::numeric_limits<long long>::max();
 
     // argument processing
     bool fast = false;
     bool faster = false;
-    double interval = 0.0;
+    int interval = 5000;
     bool is_tcp = false;
     bool is_ipv6 = false;
     bool is_udp = false;
@@ -42,7 +45,7 @@ int main(int argc, char* argv[]) {
     int timeout = 0;
     int count = 0;
     bool fry = false;
-    bool debug = true;
+    bool debug = false;
 
 
     for (int i = 1; i < argc; ++i) {
@@ -52,6 +55,7 @@ int main(int argc, char* argv[]) {
             faster = true;
         } else if (strcmp(argv[i], "--interval") == 0 && i + 1 < argc) {
             interval = (int)(atof(argv[++i])*1000); // convert to microseconds and then to int
+            std::cout <<
         } else if (strcmp(argv[i], "--tcp") == 0) {
             is_tcp = true;
         } else if (strcmp(argv[i], "--ipv6") == 0) {
@@ -103,6 +107,7 @@ int main(int argc, char* argv[]) {
         std::cout << "Fry: " << (fry ? "true" : "false") << std::endl;
     }
 
+
     // packet building
 
     if (is_ipv6) {
@@ -131,7 +136,54 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    // packet generator
+    if (fry) {
+        //TODO: run POSIX threads and send it
+    } else {
 
+        if (timeout > 0) {
+            // calculate end time
+            end_time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count() + timeout;
+        }
+
+        if (is_ipv6) {
+            while (true) {
+                if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count() > end_time) {
+                    exit(0);
+                }
+                if (!fast) {
+                    if (!faster) {
+                        std::this_thread::sleep_for(std::chrono::microseconds(interval));
+                        printf(".");
+                        fflush(stdout);
+                    }
+                }
+                sender.send(packet6);
+            }
+        } else {
+            while (true) {
+
+                if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count() > end_time) {
+                    exit(0);
+                }
+                if (counter > count && count != 0) {
+                    exit(0);
+                }
+                if (!fast) {
+                    if (!faster) {
+                        std::this_thread::sleep_for(std::chrono::microseconds(interval));
+                        printf(".");
+                        fflush(stdout);
+                    }
+                }
+                sender.send(packet);
+                counter++;
+            }
+        }
+
+
+
+    }
 
 
     return 0;
