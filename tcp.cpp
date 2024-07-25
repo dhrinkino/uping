@@ -15,7 +15,7 @@ IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, 
     std::string data = generate(size);
 
     // Create IPv4 packet with TCP header
-    IP pkt_ip = IP(destination, source) / TCP(src_port, dst_port);
+    IP pkt_ip = IP(destination, source) / TCP(dst_port,src_port);
     pkt_ip.ttl(64); // Set Time to Live
 
     RawPDU pkt_data(data.begin(), data.end());
