@@ -19,6 +19,31 @@
 
 using namespace Tins;
 
+void help() {
+    std::cout << "Usage: uping [options]\n"
+          << "Options:\n"
+          << "  --interval=INT   Set interval in microseconds (default: 1000000us = 1 second )\n"
+          << "  --tcp            Use TCP protocol\n"
+          << "  --syn            Add SYN Flag to TCP packet\n"
+          << "  --ipv6           Use IPv6\n"
+          << "  --udp            Use UDP protocol\n"
+          << "  --icmp           Use ICMP protocol (default if no mode selected)\n"
+          << "  --size=INT       Set size (default 1024)\n"
+          << "  --src_ip=IP      Set source IP address, if empty, src will be generated same as --random\n"
+          << "  --dst_ip=IP      Set destination IP address (required)\n"
+          << "  --src_port=PORT  Set source port\n"
+          << "  --dst_port=PORT  Set destination port\n"
+          << "  --random         Generates a random IPv4 or IPv6 address for source.\n"
+          << "  --timeout=INT    Sets the timeout period in seconds, after which the program will end.\n"
+          << "  --count=INT      Sets the number of packets to be sent.\n"
+          << "  --fast           Enables fast mode, bypassing the interval between packets.\n"
+          << "  --faster         Enables an even faster mode, bypassing the interval and not printing anything to the console.\n"
+          << "  --fry            Runs senders in parallel mode without any waiting (Not Implemented, TODO).\n"
+          << "  -v               Enable verbose mode\n"
+          << "  --help           Display this help message\n";
+}
+
+
 int main(int argc, char* argv[]) {
 
     IP packet;
@@ -87,7 +112,23 @@ int main(int argc, char* argv[]) {
             debug = true;
         } else if (strcmp(argv[i], "--syn") == 0) {
             syn = true;
+        } else if (strcmp(argv[i], "--help") == 0) {
+            help();
+            return 0;
         }
+    }
+
+    if (src_ip.empty()) {
+        if (is_ipv6) {
+            src_ip = randomIPv6();
+        } else {
+            src_ip = randomIPv4();
+        }
+    }
+
+    if (dst_ip.empty()) {
+        help();
+        return 1;
     }
 
     if (debug){
