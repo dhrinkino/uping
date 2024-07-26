@@ -60,24 +60,25 @@ uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=10 --tcp 
 
 # Options and Arguments
 
-| Argument      | Description                                                                                   | Value Type          |
-|---------------|-----------------------------------------------------------------------------------------------|---------------------|
-| `--fast`      | Enables fast mode, bypassing the interval between packets.                                    | Flag                |
-| `--faster`    | Enables an even faster mode, bypassing the interval and not printing anything to the console. | Flag                |
-| `--interval=` | Sets the interval between packets (in ms).                                                    | Time in ms          |
-| `--tcp`       | Sends TCP packets.                                                                            | Flag                |
-| `--syn`       | Set SYN Flag to TCP packet (works only with --tcp)                                            | Flag                |
-| `--ipv6`      | Uses IPv6 (default is IPv4).                                                                  | Flag                |
-| `--udp`       | Sends UDP packets.                                                                            | Flag                |
-| `--icmp`      | Sends ICMP packets.                                                                           | Flag                |
-| `--size=`     | Sets the size of the payload.                                                                 | Size in bytes       |
-| `--src_ip=`   | Sets the source IP address (IPv4 or IPv6 if `--ipv6` is used).                                | IPv4/IPv6 Address   |
-| `--dst_ip=`   | Sets the destination IP address (IPv4 or IPv6 if `--ipv6` is used).                           | IPv4/IPv6 Address   |
-| `--src_port=` | Sets the source port.                                                                         | Port Number 1-65535 |
-| `--dst_port=` | Sets the destination port.                                                                    | Port Number 1-65535 |
-| `--random`    | Generates a random IPv4 or IPv6 address for source.                                           | Flag                |
-| `--timeout=`  | Sets the timeout period in seconds, after which the program will end.                         | Time in seconds     |
-| `--count=`    | Sets the number of packets to be sent.                                                        | Integer             |
-| `--fry`       | Runs 5 senders in parallel mode without any waiting.                                          | Flag                |
-| `-v`          | Verbose mode, prints all set arguments.                                                       | Flag                |
-| `--help`      | Display help message                                                                          | Flag                |
+| Argument        | Description                                                                                   | Value Type          |
+|-----------------|-----------------------------------------------------------------------------------------------|---------------------|
+| `--fast`        | Enables fast mode, bypassing the interval between packets.                                    | Flag                |
+| `--faster`      | Enables an even faster mode, bypassing the interval and not printing anything to the console. | Flag                |
+| `--interval=`   | Sets the interval between packets (in ms).                                                    | Time in ms          |
+| `--tcp`         | Sends TCP packets.                                                                            | Flag                |
+| `--syn`         | Set SYN Flag to TCP packet (works only with --tcp)                                            | Flag                |
+| `--ipv6`        | Uses IPv6 (default is IPv4).                                                                  | Flag                |
+| `--udp`         | Sends UDP packets.                                                                            | Flag                |
+| `--icmp`        | Sends ICMP packets.                                                                           | Flag                |
+| `--size=`       | Sets the size of the payload.                                                                 | Size in bytes       |
+| `--src_ip=`     | Sets the source IP address (IPv4 or IPv6 if `--ipv6` is used).                                | IPv4/IPv6 Address   |
+| `--dst_ip=`     | Sets the destination IP address (IPv4 or IPv6 if `--ipv6` is used).                           | IPv4/IPv6 Address   |
+| `--src_port=`   | Sets the source port.                                                                         | Port Number 1-65535 |
+| `--dst_port=`   | Sets the destination port.                                                                    | Port Number 1-65535 |
+| `--random`      | Generates a random IPv4 or IPv6 address for source.                                           | Flag                |
+| `--uniq_random` | Generates a random IPv4 or IPv6 address for source.                                           | Flag                |
+| `--timeout=`    | Sets the timeout period in seconds, after which the program will end.                         | Time in seconds     |
+| `--count=`      | Sets the number of packets to be sent.                                                        | Integer             |
+| `--fry`         | Runs 5 senders in parallel mode without any waiting.                                          | Flag                |
+| `-v`            | Verbose mode, prints all set arguments.                                                       | Flag                |
+| `--help`        | Display help message                                                                          | Flag                |

@@ -36,6 +36,7 @@ void help() {
           << "  --src_port=PORT  Set source port (ignored when icmp is used) (default: 1000) \n"
           << "  --dst_port=PORT  Set destination port (default: 1001)\n"
           << "  --random         Generates a random IPv4 or IPv6 address for source.\n"
+          << "  --uniq_random    Generates a random source IPv4 or IPv6 address for each packet.\n"
           << "  --timeout=INT    Sets the timeout period in seconds, after which the program will end.\n"
           << "  --count=INT      Sets the number of packets to be sent.\n"
           << "  --fast           Enables fast mode, bypassing the interval between packets.\n"
@@ -85,6 +86,7 @@ int main(int argc, char* argv[]) {
     int src_port = 1000;
     int dst_port = 1001;
     bool is_random = false;
+    bool is_random_uniq = false;
     int timeout = 0;
     int count = 0;
     bool fry = false;
@@ -120,6 +122,8 @@ int main(int argc, char* argv[]) {
             dst_port = atoi(argv[i] + 11);
         } else if (strcmp(argv[i], "--random") == 0) {
             is_random = true;
+        } else if (strcmp(argv[i], "--uniq_random") == 0) {
+            is_random_uniq = true;
         } else if (strncmp(argv[i], "--timeout=", 10) == 0) {
             timeout = atoi(argv[i] + 10);
         } else if (strncmp(argv[i], "--count=", 8) == 0) {
@@ -168,6 +172,8 @@ int main(int argc, char* argv[]) {
         std::cout << "Count: " << count << std::endl;
         std::cout << "Fry: " << (fry ? "true" : "false") << std::endl;
         std::cout << "TCP Syn: " << (syn ? "true" : "false") << std::endl;
+        std::cout << "Uniq random source IP: " << (is_random_uniq ? "true" : "false") << std::endl;
+
     }
 
 
@@ -236,6 +242,17 @@ int main(int argc, char* argv[]) {
 
         if (is_ipv6) {
             while (true) {
+                if (is_random_uniq) {
+                    src_ip = randomIPv6();
+                    if (is_udp) {
+                        packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size);
+                    } else if (is_tcp) {
+                        packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,syn);
+                    } else {
+                        // nothing selected fallback to ICMP
+                        packet6 = icmpv6(src_ip,dst_ip,size);
+                    }
+                }
                 if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count() > end_time) {
                     exit(0);
                 }
@@ -256,6 +273,18 @@ int main(int argc, char* argv[]) {
             }
         } else {
             while (true) {
+
+                if (is_random_uniq) {
+                        src_ip = randomIPv4();
+                    if (is_udp) {
+                        packet = udp(src_ip,dst_ip,src_port,dst_port,size);
+                    } else if (is_tcp) {
+                        packet = tcp(src_ip,dst_ip,src_port,dst_port,size,syn);
+                    } else {
+                        // nothing selected fallback to ICMP
+                        packet = icmp(src_ip,dst_ip,size);
+                    }
+                }
 
                 if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count() > end_time) {
                     exit(0);
