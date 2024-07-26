@@ -53,7 +53,7 @@ void sendPara4(IP packet)
         sender.send(packet);
     }
 }
-void sendPara6(IP packet)
+void sendPara6(IPv6 packet)
 {
     PacketSender sender;
     while (true){
@@ -201,19 +201,31 @@ int main(int argc, char* argv[]) {
 
     // packet generator
     if (fry) {
+        if (is_ipv6){
+            std::thread it1(sendPara6, packet6);
+            std::thread it2(sendPara6, packet6);
+            std::thread it3(sendPara6, packet6);
+            std::thread it4(sendPara6, packet6);
+            std::thread it5(sendPara6, packet6);
 
-        std::thread t1(sendPara4, packet);
-        std::thread t2(sendPara4, packet);
-        std::thread t3(sendPara4, packet);
-        std::thread t4(sendPara4, packet);
-        std::thread t5(sendPara4, packet);
+            it1.join();
+            it2.join();
+            it3.join();
+            it4.join();
+            it5.join();
+        } else {
+            std::thread t1(sendPara4, packet);
+            std::thread t2(sendPara4, packet);
+            std::thread t3(sendPara4, packet);
+            std::thread t4(sendPara4, packet);
+            std::thread t5(sendPara4, packet);
 
-        t1.join();
-        t2.join();
-        t3.join();
-        t4.join();
-        t5.join();
-
+            t1.join();
+            t2.join();
+            t3.join();
+            t4.join();
+            t5.join();
+        }
 
     } else {
 
