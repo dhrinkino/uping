@@ -17,4 +17,4 @@ file(GLOB SOURCES "src/*.cpp")
 add_executable(uping ${SOURCES})
 
 # Link tins library
-target_link_libraries(uping tins pthread)
+target_link_libraries(uping tins)

@@ -4,7 +4,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <limits>
-#include <pthread.h>
+#include <thread>
 
 
 #include "icmpv6.h"
@@ -18,6 +18,8 @@
 
 
 using namespace Tins;
+
+
 
 void help() {
     std::cout << "Usage: uping [options]\n"
@@ -43,27 +45,28 @@ void help() {
           << "  --help           Display this help message\n";
 }
 
-void* parallel4Send(void* packet) {
-    IP* pkt = (IP*)packet;
+
+void sendPara4(IP packet)
+{
     PacketSender sender;
     while (true){
-        sender.send(*pkt);
+        sender.send(packet);
     }
 }
-void* parallel6Send(void* packet) {
+void sendPara6(IP packet)
+{
     PacketSender sender;
-    IPv6* pkt = (IPv6*)packet;
     while (true){
-        sender.send(*pkt);
+        sender.send(packet);
     }
 }
+
 
 int main(int argc, char* argv[]) {
-
+    std::vector<std::thread> threads;
+    PacketSender sender;
     IP packet;
     IPv6 packet6;
-    PacketSender sender;
-    pthread_t threads[10];
     int counter = 0;
 
     long long end_time = std::numeric_limits<long long>::max();
@@ -198,21 +201,28 @@ int main(int argc, char* argv[]) {
 
     // packet generator
     if (fry) {
-        printf("Frying a computer!!!");
-        if (is_ipv6) {
-            for (int i = 0; i < 10; ++i) {
-                if (pthread_create(&threads[i], NULL, parallel6Send, &packet6)) {
-                    fprintf(stderr, "Error creating thread %d\n", i);
-                    return 1;
-                }
-            }
+        if(is_ipv6) {
+            std::thread t1(sendPara6, packet6);
+            std::thread t2(sendPara6, packet6);
+            std::thread t3(sendPara6, packet6);
+            std::thread t4(sendPara6, packet6);
+            std::thread t5(sendPara6, packet6);
+            t1.join();
+            t2.join();
+            t3.join();
+            t4.join();
+            t5.join();
         } else {
-            for (int i = 0; i < 1000; ++i) {
-                if (pthread_create(&threads[i], NULL, parallel4Send, &packet)) {
-                    fprintf(stderr, "Error creating thread %d\n", i);
-                    return 1;
-                }
-            }
+            std::thread t1(sendPara4, packet);
+            std::thread t2(sendPara4, packet);
+            std::thread t3(sendPara4, packet);
+            std::thread t4(sendPara4, packet);
+            std::thread t5(sendPara4, packet);
+            t1.join();
+            t2.join();
+            t3.join();
+            t4.join();
+            t5.join();
         }
     } else {
 
