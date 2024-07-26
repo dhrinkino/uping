@@ -78,6 +78,6 @@ uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=10 --tcp 
 | `--random`    | Generates a random IPv4 or IPv6 address for source.                                           | Flag                |
 | `--timeout=`  | Sets the timeout period in seconds, after which the program will end.                         | Time in seconds     |
 | `--count=`    | Sets the number of packets to be sent.                                                        | Integer             |
-| `--fry`       | Runs senders in parallel mode without any waiting (Not Implemented, TODO).                    | Flag                |
+| `--fry`       | Runs 5 senders in parallel mode without any waiting.                                          | Flag                |
 | `-v`          | Verbose mode, prints all set arguments.                                                       | Flag                |
 | `--help`      | Display help message                                                                          | Flag                |

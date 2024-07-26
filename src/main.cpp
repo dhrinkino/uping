@@ -40,7 +40,7 @@ void help() {
           << "  --count=INT      Sets the number of packets to be sent.\n"
           << "  --fast           Enables fast mode, bypassing the interval between packets.\n"
           << "  --faster         Enables an even faster mode, bypassing the interval and not printing anything to the console.\n"
-          << "  --fry            Runs senders in parallel mode without any waiting (Not Implemented, TODO).\n"
+          << "  --fry            Runs 5 senders in parallel mode without any waiting\n"
           << "  -v               Enable verbose mode\n"
           << "  --help           Display this help message\n";
 }
