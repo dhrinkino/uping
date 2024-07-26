@@ -76,7 +76,7 @@ uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=10 --tcp 
 | `--src_port=`   | Sets the source port.                                                                         | Port Number 1-65535 |
 | `--dst_port=`   | Sets the destination port.                                                                    | Port Number 1-65535 |
 | `--random`      | Generates a random IPv4 or IPv6 address for source.                                           | Flag                |
-| `--uniq_random` | Generates a random IPv4 or IPv6 address for source.                                           | Flag                |
+| `--uniq_random` | Generates a random source IPv4 or IPv6 address for each packet.                               | Flag                |
 | `--timeout=`    | Sets the timeout period in seconds, after which the program will end.                         | Time in seconds     |
 | `--count=`      | Sets the number of packets to be sent.                                                        | Integer             |
 | `--fry`         | Runs 5 senders in parallel mode without any waiting.                                          | Flag                |
