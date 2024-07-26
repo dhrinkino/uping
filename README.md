@@ -30,7 +30,7 @@ uping --src_ip=192.168.0.2 --dst_ip=192.168.0.1 --interval=10 --icmp -v
 
 IPv6 ICMPv6 Flood with interval 10ms
 ```bash
-uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=1000 --icmp --ipv6 -v 
+uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=10 --icmp --ipv6 -v 
 ```
 
 IPv4 UDP Flood from source port 100 and destination Port 500 with interval 10ms
