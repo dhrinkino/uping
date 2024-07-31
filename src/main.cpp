@@ -27,6 +27,9 @@ void help() {
           << "  --interval=INT   Set interval in microseconds (default: 1000000us = 1 second )\n"
           << "  --tcp            Use TCP protocol\n"
           << "  --syn            Add SYN Flag to TCP packet\n"
+          << "  --ack            Add ACK Flag to TCP packet\n"
+          << "  --fin            Add FIN Flag to TCP packet\n"
+          << "  --urg            Add URG Flag to TCP packet\n"
           << "  --ipv6           Use IPv6\n"
           << "  --udp            Use UDP protocol\n"
           << "  --icmp           Use ICMP protocol (default if no mode selected)\n"
@@ -92,6 +95,9 @@ int main(int argc, char* argv[]) {
     bool fry = false;
     bool debug = false;
     bool syn = false;
+    bool ack = false;
+    bool fin = false;
+    bool urg = false;
 
 
     for (int i = 1; i < argc; ++i) {
@@ -134,6 +140,12 @@ int main(int argc, char* argv[]) {
             debug = true;
         } else if (strcmp(argv[i], "--syn") == 0) {
             syn = true;
+        } else if (strcmp(argv[i], "--ack") == 0) {
+            ack = true;
+        } else if (strcmp(argv[i], "--fin") == 0) {
+            fin = true;
+        } else if (strcmp(argv[i], "--urg") == 0) {
+            urg = true;
         } else if (strcmp(argv[i], "--help") == 0) {
             help();
             return 0;
@@ -171,7 +183,10 @@ int main(int argc, char* argv[]) {
         std::cout << "Timeout: " << timeout << std::endl;
         std::cout << "Count: " << count << std::endl;
         std::cout << "Fry: " << (fry ? "true" : "false") << std::endl;
-        std::cout << "TCP Syn: " << (syn ? "true" : "false") << std::endl;
+        std::cout << "TCP SYN: " << (syn ? "true" : "false") << std::endl;
+        std::cout << "TCP ACK: " << (ack ? "true" : "false") << std::endl;
+        std::cout << "TCP URG: " << (urg ? "true" : "false") << std::endl;
+        std::cout << "TCP FIN: " << (fin ? "true" : "false") << std::endl;
         std::cout << "Uniq random source IP: " << (is_random_uniq ? "true" : "false") << std::endl;
 
     }
@@ -186,7 +201,7 @@ int main(int argc, char* argv[]) {
         if (is_udp) {
             packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size);
         } else if (is_tcp) {
-            packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,syn);
+            packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,syn,ack,fin,urg);
         } else {
             // nothing selected fallback to ICMP
             packet6 = icmpv6(src_ip,dst_ip,size);
@@ -198,7 +213,7 @@ int main(int argc, char* argv[]) {
         if (is_udp) {
             packet = udp(src_ip,dst_ip,src_port,dst_port,size);
         } else if (is_tcp) {
-            packet = tcp(src_ip,dst_ip,src_port,dst_port,size,syn);
+            packet = tcp(src_ip,dst_ip,src_port,dst_port,size,syn,ack,fin,urg);
         } else {
             // nothing selected fallback to ICMP
             packet = icmp(src_ip,dst_ip,size);
@@ -247,7 +262,7 @@ int main(int argc, char* argv[]) {
                     if (is_udp) {
                         packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size);
                     } else if (is_tcp) {
-                        packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,syn);
+                        packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,syn,ack,fin,urg);
                     } else {
                         // nothing selected fallback to ICMP
                         packet6 = icmpv6(src_ip,dst_ip,size);
@@ -279,7 +294,7 @@ int main(int argc, char* argv[]) {
                     if (is_udp) {
                         packet = udp(src_ip,dst_ip,src_port,dst_port,size);
                     } else if (is_tcp) {
-                        packet = tcp(src_ip,dst_ip,src_port,dst_port,size,syn);
+                        packet = tcp(src_ip,dst_ip,src_port,dst_port,size,syn,ack,fin,urg);
                     } else {
                         // nothing selected fallback to ICMP
                         packet = icmp(src_ip,dst_ip,size);

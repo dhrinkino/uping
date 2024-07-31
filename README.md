@@ -67,6 +67,9 @@ uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=10 --tcp 
 | `--interval=`   | Sets the interval between packets (in ms).                                                    | Time in ms          |
 | `--tcp`         | Sends TCP packets.                                                                            | Flag                |
 | `--syn`         | Set SYN Flag to TCP packet (works only with --tcp)                                            | Flag                |
+| `--ack`         | Set ACK Flag to TCP packet (works only with --tcp)                                            | Flag                |
+| `--fin`         | Set FIN Flag to TCP packet (works only with --tcp)                                            | Flag                |
+| `--urg`         | Set URG Flag to TCP packet (works only with --tcp)                                            | Flag                |
 | `--ipv6`        | Uses IPv6 (default is IPv4).                                                                  | Flag                |
 | `--udp`         | Sends UDP packets.                                                                            | Flag                |
 | `--icmp`        | Sends ICMP packets.                                                                           | Flag                |

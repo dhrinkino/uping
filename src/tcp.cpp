@@ -7,7 +7,7 @@
 using namespace std;
 using namespace Tins;
 
-IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, int size, bool syn) {
+IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, int size, bool syn, bool ack, bool fin, bool urg) {
     // Define SRC and DEST
     std::string source = src_ipv4;
     std::string destination = dest_ipv4;
@@ -19,6 +19,15 @@ IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, 
     pkt_ip.ttl(64); // Set Time to Live
     if (syn) {
         pkt_ip.rfind_pdu<TCP>().flags(TCP::SYN);
+    }
+    if (ack) {
+        pkt_ip.rfind_pdu<TCP>().flags(TCP::ACK);
+    }
+    if (fin) {
+        pkt_ip.rfind_pdu<TCP>().flags(TCP::FIN);
+    }
+    if (urg) {
+        pkt_ip.rfind_pdu<TCP>().flags(TCP::URG);
     }
     RawPDU pkt_data(data.begin(), data.end());
     pkt_ip /= pkt_data;

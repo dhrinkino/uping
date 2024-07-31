@@ -5,5 +5,5 @@
 #ifndef TCP_H
 #define TCP_H
 #include <tins/ip.h>
-Tins::IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, int size, bool syn);
+Tins::IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, int size, bool syn, bool ack, bool fin, bool urg);
 #endif //TCP_H
