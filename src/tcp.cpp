@@ -7,7 +7,7 @@
 using namespace std;
 using namespace Tins;
 
-IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, int size, bool syn, bool ack, bool fin, bool urg) {
+IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, int size, int ttl, bool syn, bool ack, bool fin, bool urg) {
     // Define SRC and DEST
     std::string source = src_ipv4;
     std::string destination = dest_ipv4;
@@ -16,7 +16,7 @@ IP tcp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, 
 
     // Create IPv4 packet with TCP header
     IP pkt_ip = IP(destination, source) / TCP(dst_port,src_port);
-    pkt_ip.ttl(64); // Set Time to Live
+    pkt_ip.ttl(ttl);
     if (syn) {
         pkt_ip.rfind_pdu<TCP>().flags(TCP::SYN);
     }

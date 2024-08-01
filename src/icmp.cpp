@@ -11,7 +11,7 @@
 using namespace std;
 using namespace Tins;
 
-IP icmp(std::string src_ipv4, std::string dest_ipv4, int size) {
+IP icmp(std::string src_ipv4, std::string dest_ipv4, int size, int ttl) {
     // define SRC and DEST
     std::string source = src_ipv4;
     std::string destination = dest_ipv4;
@@ -24,8 +24,7 @@ IP icmp(std::string src_ipv4, std::string dest_ipv4, int size) {
     icmp.type(ICMP::ECHO_REQUEST);
     icmp.code(0);
 
-    // set TTL to 128 (like OS Windows)
-    pkt_ip.ttl(128);
+    pkt_ip.ttl(ttl);
 
     // insert data payload
     RawPDU pkt_data(data);

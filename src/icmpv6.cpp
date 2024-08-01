@@ -11,7 +11,7 @@
 using namespace std;
 using namespace Tins;
 
-    IPv6 icmpv6(std::string src_ipv6, std::string dest_ipv6, int size) {
+    IPv6 icmpv6(std::string src_ipv6, std::string dest_ipv6, int size, int ttl) {
         // define SRC and DEST
         std::string source = src_ipv6;
         std::string destination = dest_ipv6;
@@ -24,8 +24,7 @@ using namespace Tins;
         icmpv6.type(ICMPv6::ECHO_REQUEST);
         icmpv6.code(0);
 
-        // set TTL to 128 (like OS Windows)
-        pkt_ip.hop_limit(128);
+        pkt_ip.hop_limit(ttl);
 
         // insert data payload
         RawPDU pkt_data(data);

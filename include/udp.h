@@ -5,6 +5,6 @@
 #ifndef UDP_H
 #define UDP_H
 #include <tins/ip.h>
-Tins::IP udp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, int size);
+Tins::IP udp(std::string src_ipv4, std::string dest_ipv4, int src_port, int dst_port, int size, int ttl);
 
 #endif //UDP_H

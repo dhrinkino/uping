@@ -25,6 +25,7 @@ void help() {
     std::cout << "Usage: uping [options]\n"
           << "Options:\n"
           << "  --interval=INT   Set interval in microseconds (default: 1000000us = 1 second )\n"
+          << "  --ttl=INT        Set custom TTL value (default: 64)\n"
           << "  --tcp            Use TCP protocol\n"
           << "  --syn            Add SYN Flag to TCP packet\n"
           << "  --ack            Add ACK Flag to TCP packet\n"
@@ -98,6 +99,7 @@ int main(int argc, char* argv[]) {
     bool ack = false;
     bool fin = false;
     bool urg = false;
+    int ttl = 64;
 
 
     for (int i = 1; i < argc; ++i) {
@@ -146,6 +148,8 @@ int main(int argc, char* argv[]) {
             fin = true;
         } else if (strcmp(argv[i], "--urg") == 0) {
             urg = true;
+        } else if (strncmp(argv[i], "--ttl=", 6) == 0) {
+            ttl = atoi(argv[i] + 6);
         } else if (strcmp(argv[i], "--help") == 0) {
             help();
             return 0;
@@ -199,24 +203,24 @@ int main(int argc, char* argv[]) {
             src_ip = randomIPv6();
         }
         if (is_udp) {
-            packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size);
+            packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size, ttl);
         } else if (is_tcp) {
-            packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,syn,ack,fin,urg);
+            packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg);
         } else {
             // nothing selected fallback to ICMP
-            packet6 = icmpv6(src_ip,dst_ip,size);
+            packet6 = icmpv6(src_ip,dst_ip,size,ttl);
         }
     } else {
         if (is_random) {
             src_ip = randomIPv4();
         }
         if (is_udp) {
-            packet = udp(src_ip,dst_ip,src_port,dst_port,size);
+            packet = udp(src_ip,dst_ip,src_port,dst_port,size,ttl);
         } else if (is_tcp) {
-            packet = tcp(src_ip,dst_ip,src_port,dst_port,size,syn,ack,fin,urg);
+            packet = tcp(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg);
         } else {
             // nothing selected fallback to ICMP
-            packet = icmp(src_ip,dst_ip,size);
+            packet = icmp(src_ip,dst_ip,size,ttl);
         }
     }
 
@@ -260,12 +264,12 @@ int main(int argc, char* argv[]) {
                 if (is_random_uniq) {
                     src_ip = randomIPv6();
                     if (is_udp) {
-                        packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size);
+                        packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size,ttl);
                     } else if (is_tcp) {
-                        packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,syn,ack,fin,urg);
+                        packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg);
                     } else {
                         // nothing selected fallback to ICMP
-                        packet6 = icmpv6(src_ip,dst_ip,size);
+                        packet6 = icmpv6(src_ip,dst_ip,size,ttl);
                     }
                 }
                 if (std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count() > end_time) {
@@ -292,12 +296,12 @@ int main(int argc, char* argv[]) {
                 if (is_random_uniq) {
                         src_ip = randomIPv4();
                     if (is_udp) {
-                        packet = udp(src_ip,dst_ip,src_port,dst_port,size);
+                        packet = udp(src_ip,dst_ip,src_port,dst_port,size,ttl);
                     } else if (is_tcp) {
-                        packet = tcp(src_ip,dst_ip,src_port,dst_port,size,syn,ack,fin,urg);
+                        packet = tcp(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg);
                     } else {
                         // nothing selected fallback to ICMP
-                        packet = icmp(src_ip,dst_ip,size);
+                        packet = icmp(src_ip,dst_ip,size,ttl);
                     }
                 }
 

@@ -65,6 +65,7 @@ uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=10 --tcp 
 | `--fast`        | Enables fast mode, bypassing the interval between packets.                                    | Flag                |
 | `--faster`      | Enables an even faster mode, bypassing the interval and not printing anything to the console. | Flag                |
 | `--interval=`   | Sets the interval between packets (in ms).                                                    | Time in ms          |
+| `--ttl=`        | Set custom TTL value (default: 64).                                                           | Integer             |
 | `--tcp`         | Sends TCP packets.                                                                            | Flag                |
 | `--syn`         | Set SYN Flag to TCP packet (works only with --tcp)                                            | Flag                |
 | `--ack`         | Set ACK Flag to TCP packet (works only with --tcp)                                            | Flag                |
