@@ -5,6 +5,6 @@
 #ifndef TCP6_H
 #define TCP6_H
 #include <tins/ipv6.h>
-Tins::IPv6 tcp6(std::string src_ipv6, std::string dest_ipv6, int src_port, int dst_port, int size, int ttl, bool syn, bool ack, bool fin, bool urg);
+Tins::IPv6 tcp6(std::string src_ipv6, std::string dest_ipv6, int src_port, int dst_port, int size, int ttl, bool syn, bool ack, bool fin, bool urg, bool rst, bool psh);
 
 #endif //TCP6_H
