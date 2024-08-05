@@ -24,30 +24,33 @@ using namespace Tins;
 void help() {
     std::cout << "Usage: uping [options]\n"
           << "Options:\n"
-          << "  --interval=INT   Set interval in microseconds (default: 1000000us = 1 second )\n"
-          << "  --ttl=INT        Set custom TTL value (default: 64)\n"
-          << "  --tcp            Use TCP protocol\n"
-          << "  --syn            Add SYN Flag to TCP packet\n"
-          << "  --ack            Add ACK Flag to TCP packet\n"
-          << "  --fin            Add FIN Flag to TCP packet\n"
-          << "  --urg            Add URG Flag to TCP packet\n"
-          << "  --ipv6           Use IPv6\n"
-          << "  --udp            Use UDP protocol\n"
-          << "  --icmp           Use ICMP protocol (default if no mode selected)\n"
-          << "  --size=INT       Set size (default 1024)\n"
-          << "  --src_ip=IP      Set source IP address, if empty, src will be generated same as --random\n"
-          << "  --dst_ip=IP      Set destination IP address (required)\n"
-          << "  --src_port=PORT  Set source port (ignored when icmp is used) (default: 1000) \n"
-          << "  --dst_port=PORT  Set destination port (default: 1001)\n"
-          << "  --random         Generates a random IPv4 or IPv6 address for source.\n"
-          << "  --uniq_random    Generates a random source IPv4 or IPv6 address for each packet.\n"
-          << "  --timeout=INT    Sets the timeout period in seconds, after which the program will end.\n"
-          << "  --count=INT      Sets the number of packets to be sent.\n"
-          << "  --fast           Enables fast mode, bypassing the interval between packets.\n"
-          << "  --faster         Enables an even faster mode, bypassing the interval and not printing anything to the console.\n"
-          << "  --fry            Runs 5 senders in parallel mode without any waiting\n"
-          << "  -v               Enable verbose mode\n"
-          << "  --help           Display this help message\n";
+          << "  --interval=INT      Set interval in microseconds (default: 1000000us = 1 second )\n"
+          << "  --ttl=INT           Set custom TTL value (default: 64)\n"
+          << "  --tcp               Use TCP protocol\n"
+          << "  --syn               Add SYN Flag to TCP packet\n"
+          << "  --ack               Add ACK Flag to TCP packet\n"
+          << "  --fin               Add FIN Flag to TCP packet\n"
+          << "  --urg               Add URG Flag to TCP packet\n"
+          << "  --rst               Add RST Flag to TCP packet\n"
+          << "  --psh               Add PSH Flag to TCP packet\n"
+          << "  --ipv6              Use IPv6\n"
+          << "  --udp               Use UDP protocol\n"
+          << "  --icmp              Use ICMP protocol (default if no mode selected)\n"
+          << "  --size=INT          Set size (default 1024)\n"
+          << "  --do-not-fragment   Set Do Not Fragment flag (IPv4 only)\n"
+          << "  --src_ip=IP         Set source IP address, if empty, src will be generated same as --random\n"
+          << "  --dst_ip=IP         Set destination IP address (required)\n"
+          << "  --src_port=PORT     Set source port (ignored when icmp is used) (default: 1000) \n"
+          << "  --dst_port=PORT     Set destination port (default: 1001)\n"
+          << "  --random            Generates a random IPv4 or IPv6 address for source.\n"
+          << "  --uniq_random       Generates a random source IPv4 or IPv6 address for each packet.\n"
+          << "  --timeout=INT       Sets the timeout period in seconds, after which the program will end.\n"
+          << "  --count=INT         Sets the number of packets to be sent.\n"
+          << "  --fast              Enables fast mode, bypassing the interval between packets.\n"
+          << "  --faster            Enables an even faster mode, bypassing the interval and not printing anything to the console.\n"
+          << "  --fry               Runs 5 senders in parallel mode without any waiting\n"
+          << "  -v                  Enable verbose mode\n"
+          << "  --help              Display this help message\n";
 }
 
 
@@ -188,6 +191,7 @@ int main(int argc, char* argv[]) {
         std::cout << "UDP: " << (is_udp ? "true" : "false") << std::endl;
         std::cout << "ICMP: " << (is_icmp ? "true" : "false") << std::endl;
         std::cout << "Size: " << size << std::endl;
+        std::cout << "Do Not Fragment: " << (dnf ? "true" : "false") << std::endl;
         std::cout << "Source IP: " << src_ip << std::endl;
         std::cout << "Destination IP: " << dst_ip << std::endl;
         std::cout << "Source Port: " << src_port << std::endl;
@@ -200,6 +204,8 @@ int main(int argc, char* argv[]) {
         std::cout << "TCP ACK: " << (ack ? "true" : "false") << std::endl;
         std::cout << "TCP URG: " << (urg ? "true" : "false") << std::endl;
         std::cout << "TCP FIN: " << (fin ? "true" : "false") << std::endl;
+        std::cout << "TCP PUSH: " << (psh ? "true" : "false") << std::endl;
+        std::cout << "TCP RST: " << (rst ? "true" : "false") << std::endl;
         std::cout << "Uniq random source IP: " << (is_random_uniq ? "true" : "false") << std::endl;
 
     }
