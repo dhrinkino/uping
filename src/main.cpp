@@ -99,6 +99,9 @@ int main(int argc, char* argv[]) {
     bool ack = false;
     bool fin = false;
     bool urg = false;
+    bool rst = false;
+    bool psh = false;
+    bool dnf = false;
     int ttl = 64;
 
 
@@ -148,6 +151,12 @@ int main(int argc, char* argv[]) {
             fin = true;
         } else if (strcmp(argv[i], "--urg") == 0) {
             urg = true;
+        } else if (strcmp(argv[i], "--rst") == 0) {
+            rst = true;
+        } else if (strcmp(argv[i], "--psh") == 0) {
+            psh = true;
+        } else if (strcmp(argv[i], "--do-not-fragment") == 0) {
+            dnf = true;
         } else if (strncmp(argv[i], "--ttl=", 6) == 0) {
             ttl = atoi(argv[i] + 6);
         } else if (strcmp(argv[i], "--help") == 0) {
@@ -205,7 +214,7 @@ int main(int argc, char* argv[]) {
         if (is_udp) {
             packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size, ttl);
         } else if (is_tcp) {
-            packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg);
+            packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg,rst,psh);
         } else {
             // nothing selected fallback to ICMP
             packet6 = icmpv6(src_ip,dst_ip,size,ttl);
@@ -217,7 +226,7 @@ int main(int argc, char* argv[]) {
         if (is_udp) {
             packet = udp(src_ip,dst_ip,src_port,dst_port,size,ttl);
         } else if (is_tcp) {
-            packet = tcp(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg);
+            packet = tcp(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg,rst,psh,dnf);
         } else {
             // nothing selected fallback to ICMP
             packet = icmp(src_ip,dst_ip,size,ttl);
@@ -266,7 +275,7 @@ int main(int argc, char* argv[]) {
                     if (is_udp) {
                         packet6 = udp6(src_ip,dst_ip,src_port,dst_port,size,ttl);
                     } else if (is_tcp) {
-                        packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg);
+                        packet6 = tcp6(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg,rst,psh);
                     } else {
                         // nothing selected fallback to ICMP
                         packet6 = icmpv6(src_ip,dst_ip,size,ttl);
@@ -298,7 +307,7 @@ int main(int argc, char* argv[]) {
                     if (is_udp) {
                         packet = udp(src_ip,dst_ip,src_port,dst_port,size,ttl);
                     } else if (is_tcp) {
-                        packet = tcp(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg);
+                        packet = tcp(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg,rst,psh,dnf);
                     } else {
                         // nothing selected fallback to ICMP
                         packet = icmp(src_ip,dst_ip,size,ttl);
