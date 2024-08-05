@@ -11,7 +11,7 @@
 using namespace std;
 using namespace Tins;
 
-IP icmp(std::string src_ipv4, std::string dest_ipv4, int size, int ttl) {
+IP icmp(std::string src_ipv4, std::string dest_ipv4, int size, int ttl, bool dnf) {
     // define SRC and DEST
     std::string source = src_ipv4;
     std::string destination = dest_ipv4;
@@ -25,7 +25,9 @@ IP icmp(std::string src_ipv4, std::string dest_ipv4, int size, int ttl) {
     icmp.code(0);
 
     pkt_ip.ttl(ttl);
-
+    if (dnf) {
+        pkt_ip.flags(IP::DONT_FRAGMENT);
+    }
     // insert data payload
     RawPDU pkt_data(data);
     pkt_ip /= pkt_data;

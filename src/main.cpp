@@ -230,12 +230,12 @@ int main(int argc, char* argv[]) {
             src_ip = randomIPv4();
         }
         if (is_udp) {
-            packet = udp(src_ip,dst_ip,src_port,dst_port,size,ttl);
+            packet = udp(src_ip,dst_ip,src_port,dst_port,size,ttl,dnf);
         } else if (is_tcp) {
             packet = tcp(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg,rst,psh,dnf);
         } else {
             // nothing selected fallback to ICMP
-            packet = icmp(src_ip,dst_ip,size,ttl);
+            packet = icmp(src_ip,dst_ip,size,ttl,dnf);
         }
     }
 
@@ -311,12 +311,12 @@ int main(int argc, char* argv[]) {
                 if (is_random_uniq) {
                         src_ip = randomIPv4();
                     if (is_udp) {
-                        packet = udp(src_ip,dst_ip,src_port,dst_port,size,ttl);
+                        packet = udp(src_ip,dst_ip,src_port,dst_port,size,ttl,dnf);
                     } else if (is_tcp) {
                         packet = tcp(src_ip,dst_ip,src_port,dst_port,size,ttl,syn,ack,fin,urg,rst,psh,dnf);
                     } else {
                         // nothing selected fallback to ICMP
-                        packet = icmp(src_ip,dst_ip,size,ttl);
+                        packet = icmp(src_ip,dst_ip,size,ttl,dnf);
                     }
                 }
 
