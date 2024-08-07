@@ -115,7 +115,6 @@ int main(int argc, char* argv[]) {
             faster = true;
         } else if (strncmp(argv[i], "--interval=", 11) == 0) {
             interval = (int)(atof(argv[i] + 11)*1000); // convert to microseconds and then to int
-
         } else if (strcmp(argv[i], "--tcp") == 0) {
             is_tcp = true;
         } else if (strcmp(argv[i], "--ipv6") == 0) {
@@ -134,9 +133,19 @@ int main(int argc, char* argv[]) {
             src_port = atoi(argv[i] + 11);
         } else if (strncmp(argv[i], "--dst_port=", 11) == 0) {
             dst_port = atoi(argv[i] + 11);
+        } else if (strncmp(argv[i], "--src-ip=", 9) == 0) {
+            src_ip = argv[i] + 9;
+        } else if (strncmp(argv[i], "--dst-ip=", 9) == 0) {
+            dst_ip = argv[i] + 9;
+        } else if (strncmp(argv[i], "--src-port=", 11) == 0) {
+            src_port = atoi(argv[i] + 11);
+        } else if (strncmp(argv[i], "--dst-port=", 11) == 0) {
+            dst_port = atoi(argv[i] + 11);
         } else if (strcmp(argv[i], "--random") == 0) {
             is_random = true;
         } else if (strcmp(argv[i], "--uniq_random") == 0) {
+            is_random_uniq = true;
+        } else if (strcmp(argv[i], "--uniq-random") == 0) {
             is_random_uniq = true;
         } else if (strncmp(argv[i], "--timeout=", 10) == 0) {
             timeout = atoi(argv[i] + 10);
