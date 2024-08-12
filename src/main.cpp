@@ -63,8 +63,6 @@ int main(int argc, char* argv[]) {
         debug(config);
     }
 
-    // packet building
-
     if (config.is_ipv6) {
         if (config.is_random) {
             config.src_ip = randomIPv6();
@@ -74,7 +72,6 @@ int main(int argc, char* argv[]) {
         } else if (config.is_tcp) {
             packet6 = tcp6(config.src_ip,config.dst_ip,config.src_port,config.dst_port,config.size,config.ttl,config.syn,config.ack,config.fin,config.urg,config.rst,config.psh);
         } else {
-            // nothing selected fallback to ICMP
             packet6 = icmpv6(config.src_ip,config.dst_ip,config.size,config.ttl);
         }
     } else {
@@ -86,12 +83,10 @@ int main(int argc, char* argv[]) {
         } else if (config.is_tcp) {
             packet = tcp(config.src_ip,config.dst_ip,config.src_port,config.dst_port,config.size,config.ttl,config.syn,config.ack,config.fin,config.urg,config.rst,config.psh,config.dnf);
         } else {
-            // nothing selected fallback to ICMP
             packet = icmp(config.src_ip,config.dst_ip,config.size,config.ttl,config.dnf);
         }
     }
 
-    // packet generator
     if (config.fry) {
         if (config.is_ipv6){
             std::thread it1(sendPara6, packet6);
@@ -122,7 +117,6 @@ int main(int argc, char* argv[]) {
     } else {
 
         if (config.timeout > 0) {
-            // calculate end time
             end_time = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count() + config.timeout;
         }
 
@@ -135,7 +129,6 @@ int main(int argc, char* argv[]) {
                     } else if (config.is_tcp) {
                         packet6 = tcp6(config.src_ip,config.dst_ip,config.src_port,config.dst_port,config.size,config.ttl,config.syn,config.ack,config.fin,config.urg,config.rst,config.psh);
                     } else {
-                        // nothing selected fallback to ICMP
                         packet6 = icmpv6(config.src_ip,config.dst_ip,config.size,config.ttl);
                     }
                 }
@@ -167,7 +160,6 @@ int main(int argc, char* argv[]) {
                     } else if (config.is_tcp) {
                         packet = tcp(config.src_ip,config.dst_ip,config.src_port,config.dst_port,config.size,config.ttl,config.syn,config.ack,config.fin,config.urg,config.rst,config.psh,config.dnf);
                     } else {
-                        // nothing selected fallback to ICMP
                         packet = icmp(config.src_ip,config.dst_ip,config.size,config.ttl,config.dnf);
                     }
                 }

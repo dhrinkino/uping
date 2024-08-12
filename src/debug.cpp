@@ -3,7 +3,6 @@
 
 void debug(Config config)
 {
-        // Output the parsed values
         std::cout << "Fast: " << (config.fast ? "true" : "false") << std::endl;
         std::cout << "Faster: " << (config.faster ? "true" : "false") << std::endl;
         std::cout << "Interval: " << config.interval << std::endl;

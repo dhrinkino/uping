@@ -14,7 +14,7 @@ string generate(int size) {
     for (size_t i = 0; i < size - 1; ++i) {
         str += 'a';
     }
-    // finalize string
+
     str += '\0';
     return str;
 }

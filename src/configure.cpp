@@ -60,7 +60,6 @@ void configure(int argc, char* argv[], Config& config) {
         } else if (strncmp(argv[i], "--ttl=", 6) == 0) {
             config.ttl = atoi(argv[i] + 6);
         } else if (strcmp(argv[i], "--help") == 0) {
-            // Assuming you have a help function defined
             help();
             exit(0);
         }
