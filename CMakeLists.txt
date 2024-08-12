@@ -14,7 +14,13 @@ include_directories(include)
 file(GLOB SOURCES "src/*.cpp")
 
 # Create executable
-add_executable(uping ${SOURCES})
+add_executable(uping ${SOURCES}
+        src/configure.cpp
+        include/configure.h
+        include/help.h
+        src/help.cpp
+        src/debug.cpp
+        include/debug.h)
 
 # Link tins library
 target_link_libraries(uping tins)
