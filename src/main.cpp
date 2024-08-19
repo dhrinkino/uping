@@ -18,43 +18,20 @@
 
 using namespace Tins;
 
-struct paraPacket4
-{
-    IP packet;
-    std::string iface;
-};
 
-struct paraPacket6
-{
-    IPv6 packet;
-    std::string iface;
-};
-
-
-void sendPara4(paraPacket4 structPacket)
+void sendPara4(IP packet)
 {
     PacketSender sender;
     while (true){
-        if (!structPacket.iface.empty())
-        {
-            sender.send(structPacket.packet,structPacket.iface);
-        } else
-        {
-            sender.send(structPacket.packet);
-        }
+            sender.send(packet);
     }
 }
-void sendPara6(paraPacket6 structPacket)
+void sendPara6(IPv6 packet)
 {
     PacketSender sender;
     while (true){
-        if (!structPacket.iface.empty())
-        {
-            sender.send(structPacket.packet,structPacket.iface);
-        } else
-        {
-            sender.send(structPacket.packet);
-        }
+
+            sender.send(packet);
     }
 }
 
@@ -76,7 +53,10 @@ int main(int argc, char* argv[]) {
             config.src_ip = randomIPv4();
         }
     }
-
+    if (!config.iface.empty())
+    {
+        sender.default_interface(config.iface);
+    }
     if (config.dst_ip.empty()) {
         help();
         return 1;
@@ -113,17 +93,12 @@ int main(int argc, char* argv[]) {
 
     if (config.fry) {
         if (config.is_ipv6){
-            paraPacket6 structPacket;
-            structPacket.packet = packet6;
-            if (!config.iface.empty())
-            {
-                structPacket.iface = config.iface;
-            }
-            std::thread it1(sendPara6, structPacket);
-            std::thread it2(sendPara6, structPacket);
-            std::thread it3(sendPara6, structPacket);
-            std::thread it4(sendPara6, structPacket);
-            std::thread it5(sendPara6, structPacket);
+
+            std::thread it1(sendPara6, packet6);
+            std::thread it2(sendPara6, packet6);
+            std::thread it3(sendPara6, packet6);
+            std::thread it4(sendPara6, packet6);
+            std::thread it5(sendPara6, packet6);
 
             it1.join();
             it2.join();
@@ -131,17 +106,12 @@ int main(int argc, char* argv[]) {
             it4.join();
             it5.join();
         } else {
-            paraPacket4 structPacket;
-            structPacket.packet = packet;
-            if (!config.iface.empty())
-            {
-                structPacket.iface = config.iface;
-            }
-            std::thread t1(sendPara4, structPacket);
-            std::thread t2(sendPara4, structPacket);
-            std::thread t3(sendPara4, structPacket);
-            std::thread t4(sendPara4, structPacket);
-            std::thread t5(sendPara4, structPacket);
+
+            std::thread t1(sendPara4, packet);
+            std::thread t2(sendPara4, packet);
+            std::thread t3(sendPara4, packet);
+            std::thread t4(sendPara4, packet);
+            std::thread t5(sendPara4, packet);
 
             t1.join();
             t2.join();
@@ -184,12 +154,8 @@ int main(int argc, char* argv[]) {
                     printf(".");
                     fflush(stdout);
                 }
-                if (!config.iface.empty())
-                {
-                    sender.send(packet6,config.iface);
-                } else {
                     sender.send(packet6);
-                }
+
             }
         } else {
             while (true) {
@@ -221,12 +187,7 @@ int main(int argc, char* argv[]) {
                     printf(".");
                     fflush(stdout);
                 }
-                if (!config.iface.empty())
-                {
-                    sender.send(packet,config.iface);
-                } else {
                     sender.send(packet);
-                }
                 counter++;
             }
         }
