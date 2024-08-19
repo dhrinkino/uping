@@ -33,6 +33,7 @@ struct Config {
     bool psh = false;
     bool dnf = false;
     int ttl = 64;
+    std::string iface;
 };
 
 void configure(int argc, char* argv[], Config& config);

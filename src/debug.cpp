@@ -6,6 +6,7 @@ void debug(Config config)
         std::cout << "Fast: " << (config.fast ? "true" : "false") << std::endl;
         std::cout << "Faster: " << (config.faster ? "true" : "false") << std::endl;
         std::cout << "Interval: " << config.interval << std::endl;
+        std::cout << "Interface: " << config.iface << std::endl;
         std::cout << "TCP: " << (config.is_tcp ? "true" : "false") << std::endl;
         std::cout << "IPv6: " << (config.is_ipv6 ? "true" : "false") << std::endl;
         std::cout << "UDP: " << (config.is_udp ? "true" : "false") << std::endl;

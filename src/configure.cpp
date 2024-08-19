@@ -59,6 +59,8 @@ void configure(int argc, char* argv[], Config& config) {
             config.dnf = true;
         } else if (strncmp(argv[i], "--ttl=", 6) == 0) {
             config.ttl = atoi(argv[i] + 6);
+        } else if (strncmp(argv[i], "--iface=", 8) == 0) {
+            config.iface = argv[i] + 8;
         } else if (strcmp(argv[i], "--help") == 0) {
             help();
             exit(0);

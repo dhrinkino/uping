@@ -5,6 +5,7 @@ void help() {
           << "Options:\n"
           << "  --interval=INT                      Set interval in microseconds (default: 1000000us = 1 second )\n"
           << "  --ttl=INT                           Set custom TTL value (default: 64)\n"
+          << "  --iface=INTERFACE                   Set output interface (optional, but required when using link-local address)\n"
           << "  --tcp                               Use TCP protocol\n"
           << "  --syn                               Add SYN Flag to TCP packet\n"
           << "  --ack                               Add ACK Flag to TCP packet\n"
