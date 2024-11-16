@@ -3,6 +3,9 @@
 
 UPing originated as a product of academic research projects in which I participated. Academics and security researchers have long struggled with the lack of a unified testing tool for IPv4 and IPv6 communication. The most commonly used tool by the community, hping3, does not allow for the generation of IPv6 packets, often necessitating custom solutions for packet generation. UPing enables the generation of ICMP, UDP, and TCP packets for both IPv4 and IPv6 networks.
 
+## Disclaimer
+This program is intended solely for educational and academic purposes. The creator of this program does not assume any responsibility for any misuse, damage, or consequences that may arise from its use. By using this program, you agree that you are responsible for ensuring its application complies with all relevant laws, regulations, and policies. The creator disclaims any liability for any actions taken based on the information provided by this program. Use at your own risk.
+
 ## Installation
 
 UPing requires libtins 4.5
