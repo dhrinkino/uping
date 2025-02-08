@@ -26,6 +26,7 @@ void help() {
           << "  --uniq_random/--uniq-random         Generates a random source IPv4 or IPv6 address for each packet.\n"
           << "  --timeout=INT                       Sets the timeout period in seconds, after which the program will end.\n"
           << "  --count=INT                         Sets the number of packets to be sent.\n"
+          << "  --wait=INT                          Sets the time (in seconds) after which packet generation will start.\n"
           << "  --fast                              Enables fast mode, bypassing the interval between packets.\n"
           << "  --faster                            Enables an even faster mode, bypassing the interval and not printing anything to the console.\n"
           << "  --fry                               Runs 5 senders in parallel mode without any waiting\n"

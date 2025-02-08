@@ -20,6 +20,7 @@ void debug(Config config)
         std::cout << "Random: " << (config.is_random ? "true" : "false") << std::endl;
         std::cout << "Timeout: " << config.timeout << std::endl;
         std::cout << "Count: " << config.count << std::endl;
+        std::cout << "Wait: " << config.wait << std::endl;
         std::cout << "Fry: " << (config.fry ? "true" : "false") << std::endl;
         std::cout << "TCP SYN: " << (config.syn ? "true" : "false") << std::endl;
         std::cout << "TCP ACK: " << (config.ack ? "true" : "false") << std::endl;

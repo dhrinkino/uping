@@ -41,6 +41,8 @@ void configure(int argc, char* argv[], Config& config) {
             config.count = atoi(argv[i] + 8);
         } else if (strcmp(argv[i], "--fry") == 0) {
             config.fry = true;
+        } else if (strncmp(argv[i], "--wait=", 7) == 0) {
+            config.wait = atoi(argv[i] + 7);
         } else if (strcmp(argv[i], "-v") == 0) {
             config.debug = true;
         } else if (strcmp(argv[i], "--syn") == 0) {

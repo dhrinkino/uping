@@ -66,6 +66,11 @@ int main(int argc, char* argv[]) {
     {
         debug(config);
     }
+    if (config.wait > 0) {
+        printf("Waiting for %d seconds", config.wait);
+        fflush(stdout);
+        std::this_thread::sleep_for(std::chrono::microseconds(config.wait * 1000000));
+    }
 
     if (config.is_ipv6) {
         if (config.is_random) {

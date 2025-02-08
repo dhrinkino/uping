@@ -23,6 +23,7 @@ struct Config {
     bool is_random_uniq = false;
     int timeout = 0;
     int count = 0;
+    int wait = 0;
     bool fry = false;
     bool debug = false;
     bool syn = false;
