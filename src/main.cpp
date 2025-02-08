@@ -3,6 +3,7 @@
 #include <thread>
 #include <cstdlib>
 #include <limits>
+#include <unistd.h>
 
 #include "configure.h"
 #include "debug.h"
@@ -37,6 +38,13 @@ void sendPara6(IPv6 packet)
 
 
 int main(int argc, char* argv[]) {
+
+    if (geteuid() != 0) {
+        printf("You need root privileges to run uping.\n");
+        fflush(stdout);
+        return 1;
+    }
+
     Config config;
     std::vector<std::thread> threads;
     PacketSender sender;
