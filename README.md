@@ -8,7 +8,18 @@ This program is intended solely for educational and academic purposes. The creat
 
 ## Installation
 
-UPing requires libtins 4.5
+UPing requires libtins 4.5 and Boost
+
+Ubuntu/Debian/WSL2 Example
+```bash
+apt-get install libtins-dev libboost-all-dev g++ cmake
+```
+
+MacOS example
+```bash
+brew install libtins 
+```
+
 
 ### Building from source
 #### Download repository
@@ -60,6 +71,10 @@ IPv6 TCP Flood from source port 100 and destination Port 500 with interval 10ms 
 ```bash
 uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=10 --tcp --src_port=100 --dst_port=500 --ipv6 -v --random
 ```
+15 TCP sessions connected to 192.168.2.1:22 with keepalive interval 5 seconds
+```bash
+uping --session --dst-ip=192.168.2.1 --dst-port=22 --keepalive-interval=5 --num-connection=15
+```
 
 # Options and Arguments
 
@@ -92,5 +107,8 @@ uping --src_ip=2001:db8::1:0:0:1 --dst_ip=2001:db8::1:0:0:2 --interval=10 --tcp 
 | `--count=`                      | Sets the number of packets to be sent.                                                        | Integer             |
 | `--wait=`                       | Sets the time (in seconds) after which packet generation will start.                          | Integer             |
 | `--fry`                         | Runs 5 senders in parallel mode without any waiting.                                          | Flag                |
+| `--session`                     | Make X number of TCP sessions with defined keepalive                                          | Flag                |
+| `--keepalive_interval=`         | Keepalive interval in seconds                                                                 | Integer             |
+| `--num_connection=`             | Number of parallel sessions                                                                   | Integer             |
 | `-v`                            | Verbose mode, prints all set arguments.                                                       | Flag                |
 | `--help`                        | Display help message                                                                          | Flag                |
