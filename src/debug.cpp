@@ -28,6 +28,9 @@ void debug(Config config)
         std::cout << "TCP FIN: " << (config.fin ? "true" : "false") << std::endl;
         std::cout << "TCP PUSH: " << (config.psh ? "true" : "false") << std::endl;
         std::cout << "TCP RST: " << (config.rst ? "true" : "false") << std::endl;
+        std::cout << "Session: " << (config.session ? "true" : "false") << std::endl;
+        std::cout << "Keepalive Interval: " << config.keepalive_interval << std::endl;
+        std::cout << "Number of Connections: " << config.num_connection << std::endl;
         std::cout << "Uniq random source IP: " << (config.is_random_uniq ? "true" : "false") << std::endl;
 
 }

@@ -33,6 +33,8 @@ void configure(int argc, char* argv[], Config& config) {
             config.dst_port = atoi(argv[i] + 11);
         } else if (strcmp(argv[i], "--random") == 0) {
             config.is_random = true;
+        } else if (strcmp(argv[i], "--session") == 0) {
+            config.session = true;
         } else if (strcmp(argv[i], "--uniq_random") == 0 || strcmp(argv[i], "--uniq-random") == 0) {
             config.is_random_uniq = true;
         } else if (strncmp(argv[i], "--timeout=", 10) == 0) {
@@ -63,6 +65,10 @@ void configure(int argc, char* argv[], Config& config) {
             config.ttl = atoi(argv[i] + 6);
         } else if (strncmp(argv[i], "--iface=", 8) == 0) {
             config.iface = argv[i] + 8;
+        }else if (strncmp(argv[i], "--keepalive-interval=", 21) == 0) {
+            config.keepalive_interval = atoi(argv[i] + 21);
+        } else if (strncmp(argv[i], "--num-connection=", 17) == 0) {
+            config.num_connection = atoi(argv[i] + 17);
         } else if (strcmp(argv[i], "--help") == 0) {
             help();
             exit(0);

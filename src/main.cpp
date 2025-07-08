@@ -16,6 +16,7 @@
 #include "randomIPv4.h"
 #include "randomIPv6.h"
 #include "help.h"
+#include "session.h"
 
 using namespace Tins;
 
@@ -44,6 +45,8 @@ int main(int argc, char* argv[]) {
         fflush(stdout);
         return 1;
     }
+
+
 
     Config config;
     std::vector<std::thread> threads;
@@ -102,6 +105,12 @@ int main(int argc, char* argv[]) {
         } else {
             packet = icmp(config.src_ip,config.dst_ip,config.size,config.ttl,config.dnf);
         }
+    }
+    if (config.session) {
+
+            session(config.dst_ip,config.dst_port,config.num_connection,config.keepalive_interval,1,true,config.timeout);
+            exit(0);
+
     }
 
     if (config.fry) {

@@ -33,6 +33,9 @@ struct Config {
     bool rst = false;
     bool psh = false;
     bool dnf = false;
+    bool session = false;
+    int keepalive_interval = 5;
+    int num_connection = 5;
     int ttl = 64;
     std::string iface;
 };
