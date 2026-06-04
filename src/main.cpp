@@ -113,7 +113,7 @@ int main(int argc, char* argv[]) {
 
     }
 
-    if (config.fry) {
+    if (config.par) {
         if (config.is_ipv6){
 
             std::thread it1(sendPara6, packet6);

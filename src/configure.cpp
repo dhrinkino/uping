@@ -41,8 +41,8 @@ void configure(int argc, char* argv[], Config& config) {
             config.timeout = atoi(argv[i] + 10);
         } else if (strncmp(argv[i], "--count=", 8) == 0) {
             config.count = atoi(argv[i] + 8);
-        } else if (strcmp(argv[i], "--fry") == 0) {
-            config.fry = true;
+        } else if (strcmp(argv[i], "--par") == 0) {
+            config.par = true;
         } else if (strncmp(argv[i], "--wait=", 7) == 0) {
             config.wait = atoi(argv[i] + 7);
         } else if (strcmp(argv[i], "-v") == 0) {

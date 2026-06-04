@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5)
 project(uping)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -27,4 +27,4 @@ add_executable(uping ${SOURCES}
         include/session.h)
 
 # Link tins library
-target_link_libraries(uping tins boost_system)
+target_link_libraries(uping tins)

@@ -24,7 +24,7 @@ struct Config {
     int timeout = 0;
     int count = 0;
     int wait = 0;
-    bool fry = false;
+    bool par = false;
     bool debug = false;
     bool syn = false;
     bool ack = false;

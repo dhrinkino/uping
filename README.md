@@ -106,7 +106,7 @@ uping --session --dst-ip=192.168.2.1 --dst-port=22 --keepalive-interval=5 --num-
 | `--timeout=`                    | Sets the timeout period in seconds, after which the program will end.                         | Time in seconds     |
 | `--count=`                      | Sets the number of packets to be sent.                                                        | Integer             |
 | `--wait=`                       | Sets the time (in seconds) after which packet generation will start.                          | Integer             |
-| `--fry`                         | Runs 5 senders in parallel mode without any waiting.                                          | Flag                |
+| `--par`                         | Runs 5 senders in parallel mode without any waiting.                                          | Flag                |
 | `--session`                     | Make X number of TCP sessions with defined keepalive                                          | Flag                |
 | `--keepalive_interval=`         | Keepalive interval in seconds                                                                 | Integer             |
 | `--num_connection=`             | Number of parallel sessions                                                                   | Integer             |
