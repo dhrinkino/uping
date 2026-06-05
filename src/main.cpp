@@ -53,7 +53,7 @@ int main(int argc, char* argv[]) {
     PacketSender sender;
     IP packet;
     IPv6 packet6;
-    int counter = 0;
+    int counter = 1;
     long long end_time = std::numeric_limits<long long>::max();
     configure(argc,argv,config);
 
@@ -177,7 +177,7 @@ int main(int argc, char* argv[]) {
                     fflush(stdout);
                 }
                     sender.send(packet6);
-
+                counter++;
             }
         } else {
             while (true) {
