@@ -13,6 +13,8 @@ void configure(int argc, char* argv[], Config& config) {
             config.faster = true;
         } else if (strncmp(argv[i], "--interval=", 11) == 0) {
             config.interval = static_cast<int>(atof(argv[i] + 11) * 1000);
+        }  else if (strncmp(argv[i], "--interval-us=", 14) == 0 || strncmp(argv[i], "--interval_us=", 14) == 0) {
+            config.interval = static_cast<int>(atof(argv[i] + 14));
         } else if (strcmp(argv[i], "--tcp") == 0) {
             config.is_tcp = true;
         } else if (strcmp(argv[i], "--ipv6") == 0) {
