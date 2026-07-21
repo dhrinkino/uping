@@ -3,7 +3,8 @@
 void help() {
     std::cout << "Usage: uping [options]\n"
           << "Options:\n"
-          << "  --interval=INT                      Set interval in microseconds (default: 1000000us = 1 second )\n"
+          << "  --interval=INT                      Set interval in ms (default: 1000ms = 1 second )\n"
+          << "  --interval_us=INT/--interval-us=INT Set interval in us (default: 1000000us = 1 second )\n"
           << "  --ttl=INT                           Set custom TTL value (default: 64)\n"
           << "  --iface=INTERFACE                   Set output interface (optional, but required when using link-local address)\n"
           << "  --tcp                               Use TCP protocol\n"
